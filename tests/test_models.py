@@ -104,3 +104,38 @@ class TestProductModel(unittest.TestCase):
     #
     # ADD YOUR TEST CASES HERE
     #
+    def test_read_a_product(self):
+        """It should Read a Product"""
+         product = ProductFactory()
+         product.id = None
+         product.create()
+         # Assert that it was assigned an id and shows up in the database
+         self.assertIsNotNone(product.id)
+         # Fetch it back
+         found_product = product.find(product.id)
+         # Assert that the fetched product is equal to the original product
+         self.assertEqual(found_produt.id, product.id)
+         self.assertEqual(found_product.name, product.name)
+         self.assertEqual(found_product.description, product.description)
+         self.assertEqual(found_product.price, product.price)
+
+    def test_update_a_prodcut(self):
+        """It should Update a Product"""
+        product = ProductFactory()
+        product.id = None
+        product.create()
+        # Assert that it was assigned an id and shows up in the database
+        self.assertIsNotNone(product.id)
+        # Update it
+        product.description = "testing"
+        original_id = product.id 
+        product.update()
+        self.assertEqual(product.id, original_id)
+        self.assertEqual(product.description, "testing")
+        # Fetch all the products
+        products = product.all()
+        self.assertEqual(len(products), 1)
+        self.assertEqual(products[0].id, original_id)
+        self.assertEqual(products[0].description, "testing")
+
+
